@@ -1,0 +1,6 @@
+L = ["Ram", 1, "Shyam", 2, "Aman", 3]
+print("Original List:", L)
+
+# Sort the list by converting elements to strings
+L_sorted = sorted(L, key=str)
+print("Sorted List:", L_sorted)
