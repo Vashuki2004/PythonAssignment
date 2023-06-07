@@ -1,0 +1,190 @@
+PYTHON ASSIGNMENT
+
+
+QUESTION 1
+1.
+L = [11, 12, 13, 14] L.append(50) L.append(60) print(L)
+2.
+L = [11, 12, 13, 14] L.remove(11) L.remove(13) print(L)
+3.
+L = [11, 12, 13, 14] L.sort()
+print(L)
+4.
+L = [11, 12, 13, 14] L.sort(reverse=True) print(L)
+5.
+L = [11, 12, 13, 14] if 13 in L:
+print("13 is present in L") else:
+print("13 is not present in L")
+6.
+L = [11, 12, 13, 14]
+count = len(L)
+print("Number of elements in L:", count)
+7.
+L = [11, 12, 13, 14]
+total_sum = sum(L)
+print("Sum of all elements in L:", total_sum)
+8.
+L = [11, 12, 13, 14]
+ odd_sum = sum(num for num in L if num % 2 != 0) print("Sum of all odd numbers in L:", odd_sum)
+9.
+L = [11, 12, 13, 14]
+even_sum = sum(num for num in L if num % 2 == 0) print("Sum of all even numbers in L:", even_sum)
+10.
+L = [11, 12, 13, 14] def is_prime(num):
+if num < 2: return False
+for i in range(2, int(num**0.5) + 1): if num % i == 0:
+return False return True
+11.
+prime_sum = sum(num for num in L if is_prime(num)) print("Sum of all prime numbers in L:", prime_sum)
+12.
+L = [11, 12, 13, 14] L.clear()
+print(L)
+L = [11, 12, 13, 14] del L
+
+
+
+QUESTION 2
+1.
+D = {1: 5.6, 2: 7.8, 3: 6.6, 4: 8.7, 5: 7.7} D[8] = 8.8
+print(D)
+2.
+D = {1: 5.6, 2: 7.8, 3: 6.6, 4: 8.7, 5: 7.7} del D[2]
+print(D)
+3.
+D = {1: 5.6, 2: 7.8, 3: 6.6, 4: 8.7, 5: 7.7} if 6 in D:
+
+ print("Key 6 is present in D") else:
+print("Key 6 is not present in D") 4.
+D = {1: 5.6, 2: 7.8, 3: 6.6, 4: 8.7, 5: 7.7} count = len(D)
+print("Number of elements in D:", count)
+5.
+D = {1: 5.6, 2: 7.8, 3: 6.6, 4: 8.7, 5: 7.7} total_sum = sum(D.values())
+print("Sum of all values in D:", total_sum)
+6.
+D = {1: 5.6, 2: 7.8, 3: 6.6, 4: 8.7, 5: 7.7} D[3] = 7.1
+print(D)
+7.
+D = {1: 5.6, 2: 7.8, 3: 6.6, 4: 8.7, 5: 7.7} D.clear()
+print(D)
+
+
+
+QUESTION 4
+1.
+import random import string
+for _ in range(100):
+length = random.randint(6, 8)
+random_string = ''.join(random.choices(string.ascii_lowercase, k=length)) print(random_string)
+2.
+def is_prime(n):
+if n < 2: return False
+for i in range(2, int(n ** 0.5) + 1): if n % i == 0:
+return False return True
+for num in range(600, 801): if is_prime(num):
+print(num)
+
+ 3.
+for num in range(100, 1001):
+if num % 7 == 0 and num % 9 == 0: print(num)
+
+
+
+QUESTION 6
+import random
+def is_prime(num): if num < 2:
+return False
+for i in range(2, int(num**0.5) + 1):
+if num % i == 0: return False
+return True
+# Create a list of 100 random numbers between 100 and 900 random_numbers = [random.randint(100, 900) for _ in range(100)]
+# Initialize counters odd_count = 0 even_count = 0 prime_count = 0
+# Iterate through the numbers and count odd, even, and prime numbers for num in random_numbers:
+if num % 2 != 0: odd_count += 1
+else:
+even_count += 1
+if is_prime(num): prime_count += 1
+# Print the counts
+print("Count of odd numbers:", odd_count) print("Count of even numbers:", even_count) print("Count of prime numbers:", prime_count)
+
+
+
+QUESTION 9
+import random
+
+ import string
+# Generate a random string with a given length def generate_random_string(length):
+return ''.join(random.choices(string.ascii_lowercase, k=length))
+# Open the file in write mode
+with open("random_strings.txt", "w") as file:
+# Generate and write 100 random strings to the file for _ in range(100):
+string_length = random.randint(10, 15)
+random_string = generate_random_string(string_length) file.write(f"{random_string}\n")
+
+
+
+QUESTION 10
+def is_prime(num): if num < 2:
+return False
+for i in range(2, int(num ** 0.5) + 1):
+if num % i == 0: return False
+return True
+# Open the file in write mode
+with open("prime_numbers.txt", "w") as file:
+# Iterate through the numbers between 600 and 800 for num in range(600, 801):
+if is_prime(num):
+# Write the prime number to the file file.write(f"{num}\n")
+
+
+
+QUESTION 11
+import time
+# Start time
+start_time = time.time()
+# Your program code here # ...
+# End time
+
+ end_time = time.time()
+# Calculate the time taken time_taken = end_time - start_time
+# Print the time taken in seconds print("Time taken:", time_taken, "seconds")
+
+
+
+QUESTION 12
+import time
+import matplotlib.pyplot as plt
+def sort_list(num_elements):
+# Generate a list of random numbers
+my_list = [random.randint(1, 1000) for _ in range(num_elements)]
+# Start the timer start_time = time.time()
+# Sort the list my_list.sort()
+# End the timer end_time = time.time()
+# Calculate the time taken time_taken = end_time - start_time
+return time_taken
+# Define the number of elements
+num_elements = [5000, 10000, 15000, 20000, 25000]
+# Measure the time taken for each number of elements time_taken = []
+for num in num_elements:
+t = sort_list(num) time_taken.append(t)
+# Plot the graph
+plt.plot(num_elements, time_taken, marker='o') plt.xlabel('Number of Elements') plt.ylabel('Time Taken (seconds)')
+
+plt.title('Time Taken for Sorting a List') plt.show()
+
+
+
+QUESTION 13
+# Dictionary of student marks student_marks = {
+'John': [80, 85, 90, 75, 95], 'Emily': [90, 92, 88, 85, 87], 'Michael': [75, 80, 65, 92, 78], 'Sophia': [95, 90, 92, 88, 93], 'William': [82, 78, 85, 80, 88]
+}
+# Calculate average marks for each student
+average_marks = {student: sum(marks) / len(marks) for student, marks in student_marks.items()}
+# Find student with maximum average marks
+max_student = max(average_marks, key=average_marks.get) max_marks = average_marks[max_student]
+# Find student with minimum average marks
+min_student = min(average_marks, key=average_marks.get) min_marks = average_marks[min_student]
+# Print the results
+print("Student with maximum average marks:") print("Student:", max_student)
+print("Average Marks:", max_marks)
+print()
+print("Student with minimum average marks:") print("Student:", min_student)
+print("Average Marks:", min_marks)
