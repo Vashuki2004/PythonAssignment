@@ -1,0 +1,483 @@
+1.
+import random
+import string
+
+def generate_random_string(length):
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+
+filename = "random_strings.txt"
+
+with open(filename, 'w') as file:
+    for _ in range(1000):
+        random_string = generate_random_string(10)  # Adjust the length as per your preference
+        file.write(random_string + "\n")
+
+print(f"File '{filename}' with 1000 lines of random strings has been created.")
+
+
+2.
+import random
+import string
+
+file_size_limit = 5 * 1024 * 1024  # 5 MB
+line_size_limit = 1000  # Maximum characters per line
+
+# Open the file in write mode
+with open('random_strings.txt', 'w') as file:
+    file_size = 0
+
+    while file_size < file_size_limit:
+        # Generate a random string of random length
+        line = ''.join(random.choices(string.ascii_letters + string.digits, k=random.randint(1, line_size_limit)))
+
+        # Write the line to the file
+        file.write(line + '\n')
+
+        # Update the file size
+        file_size = file.tell()
+
+print("File created: random_strings.txt")
+
+
+
+3.
+import random
+import string
+
+def generate_random_string(length):
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+
+file_count = 10
+target_file_size = 5 * 1024 * 1024  # 5 MB in bytes
+max_line_length = 100  # Maximum length of each line in characters
+
+for i in range(file_count):
+    filename = f"random_strings_{i+1}.txt"
+    file_size = 0
+
+    with open(filename, 'w') as file:
+        while file_size < target_file_size:
+            random_string = generate_random_string(random.randint(1, max_line_length))
+            line = random_string + "\n"
+            file.write(line)
+            file_size += len(line.encode('utf-8'))
+
+    print(f"File '{filename}' with size {file_size/1024} KB has been created.")
+
+
+4.
+import random
+import string
+import os
+
+file_sizes = [1, 2, 3, 4, 5]  # Sizes in GB
+
+for size in file_sizes:
+    file_size_bytes = size * 1024 * 1024 * 1024  # Convert GB to bytes
+    file_name = f"random_strings_{size}GB.txt"
+
+    # Open the file in write mode
+    with open(file_name, 'w') as file:
+        file_size = 0
+
+        while file_size < file_size_bytes:
+            # Generate a random string of random length
+            line = ''.join(random.choices(string.ascii_letters + string.digits, k=1000))
+
+            # Write the line to the file
+            file.write(line + '\n')
+
+            # Update the file size
+            file_size = os.path.getsize(file_name)
+
+    print(f"File created: {file_name}")
+
+
+
+5. 
+file_count = 10
+
+for i in range(file_count):
+    input_filename = f"random_strings_{i+1}.txt"
+    output_filename = f"random_strings_{i+1}_uppercase.txt"
+
+    with open(input_filename, 'r') as input_file, open(output_filename, 'w') as output_file:
+        for line in input_file:
+            output_file.write(line.upper())
+
+    print(f"File '{input_filename}' has been converted to uppercase in '{output_filename}'.")
+
+
+6.
+import os
+import concurrent.futures
+
+def convert_to_uppercase(file_path):
+    try:
+        # Read the file
+        with open(file_path, 'r') as file:
+            content = file.read()
+
+        # Convert the content to uppercase
+        content_upper = content.upper()
+
+        # Write the uppercase content back to the file
+        with open(file_path, 'w') as file:
+            file.write(content_upper)
+
+        print(f"Converted file: {file_path}")
+    except Exception as e:
+        print(f"Error converting file: {file_path}, {e}")
+
+# Directory containing the files
+directory = 'path/to/directory'
+
+# List all files in the directory
+files = [os.path.join(directory, file) for file in os.listdir(directory) if os.path.isfile(os.path.join(directory, file))]
+
+# Create a thread pool with a maximum of 5 threads
+with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    # Submit the conversion tasks for each file
+    results = [executor.submit(convert_to_uppercase, file) for file in files]
+
+    # Wait for all tasks to complete
+    concurrent.futures.wait(results
+
+
+7.
+from google_images_download import google_images_download
+
+# Set the parameters for image download
+response = google_images_download.googleimagesdownload()
+search_queries = ["cat"]  # Add additional search queries if desired
+num_images = 10
+output_directory = "cat_images"
+
+# Download the images
+arguments = {
+    "keywords": ",".join(search_queries),
+    "limit": num_images,
+    "output_directory": output_directory,
+    "chromedriver": "./chromedriver",  # Path to chromedriver executable (Download from https://chromedriver.chromium.org/)
+    "print_urls": False,
+    "no_directory": True,
+}
+
+response.download(arguments)
+
+
+8.
+from pytube import YouTube
+
+# Function to download a YouTube video
+def download_video(url, output_path):
+    try:
+        yt = YouTube(url)
+
+        # Choose the highest resolution available
+        video = yt.streams.get_highest_resolution()
+
+        # Download the video
+        video.download(output_path)
+        print(f"Video downloaded: {yt.title}")
+    except Exception as e:
+        print(f"Error downloading video: {e}")
+
+# Search query for "Machine Learning" videos
+search_query = "Machine Learning"
+
+# Number of videos to download
+num_videos = 10
+
+# Perform YouTube search and get video URLs
+yt_search_url = f"https://www.youtube.com/results?search_query={search_query}&sp=EgIQAQ%253D%253D"
+search_results = YouTube.search(search_query, max_results=num_videos, region="US")
+
+# Download each video
+for search_result in search_results:
+    video_url = f"https://www.youtube.com/watch?v={search_result.video_id}"
+    download_video(video_url, "./output_directory")  # Replace "./output_directory" with your desired output path
+
+
+9. 
+import os
+from moviepy.editor import VideoFileClip
+
+video_folder = "cat_videos"
+audio_folder = "cat_audios"
+
+# Create the audio folder if it doesn't exist
+os.makedirs(audio_folder, exist_ok=True)
+
+# Get the list of video files in the video folder
+video_files = [file for file in os.listdir(video_folder) if file.endswith(".mp4")]
+
+# Convert each video to audio
+for video_file in video_files:
+    video_path = os.path.join(video_folder, video_file)
+    audio_file = os.path.splitext(video_file)[0] + ".mp3"
+    audio_path = os.path.join(audio_folder, audio_file)
+
+    video_clip = VideoFileClip(video_path)
+    audio_clip = video_clip.audio
+
+    audio_clip.write_audiofile(audio_path)
+
+    print(f"Video '{video_file}' has been converted to audio.")
+
+print("Conversion completed successfully.")
+
+
+11. 
+import os
+import threading
+import time
+from google_images_download import google_images_download
+from PIL import Image
+
+
+def download_images(search_query, num_images, output_directory):
+    # Set the parameters for image download
+    response = google_images_download.googleimagesdownload()
+    
+    # Download the images
+    arguments = {
+        "keywords": search_query,
+        "limit": num_images,
+        "output_directory": output_directory,
+        "chromedriver": "./chromedriver",
+        "print_urls": False,
+        "no_directory": True,
+    }
+    
+    response.download(arguments)
+
+
+def rescale_images(input_directory, output_directory, scale_factor):
+    # Create the output directory if it doesn't exist
+    os.makedirs(output_directory, exist_ok=True)
+    
+    # Get the list of image files in the input directory
+    image_files = [file for file in os.listdir(input_directory) if file.endswith((".jpg", ".jpeg", ".png"))]
+    
+    # Rescale each image
+    for image_file in image_files:
+        image_path = os.path.join(input_directory, image_file)
+        output_file = os.path.splitext(image_file)[0] + "_rescaled.jpg"
+        output_path = os.path.join(output_directory, output_file)
+        
+        image = Image.open(image_path)
+        width, height = image.size
+        new_width = int(width * scale_factor)
+        new_height = int(height * scale_factor)
+        resized_image = image.resize((new_width, new_height))
+        resized_image.save(output_path)
+        
+        print(f"Image '{image_file}' has been rescaled.")
+        
+
+# Set the parameters for the pipeline
+search_query = "dog"
+num_images = 500
+output_directory = "dog_images"
+rescaled_directory = "dog_images_rescaled"
+scale_factor = 0.5
+
+# Start the timer
+start_time = time.time()
+
+# Download the images (in a separate thread)
+download_thread = threading.Thread(target=download_images, args=(search_query, num_images, output_directory))
+download_thread.start()
+
+# Wait for the download thread to complete
+download_thread.join()
+
+# Rescale the images (in the main thread)
+rescale_images(output_directory, rescaled_directory, scale_factor)
+
+# Calculate and print the execution time
+end_time = time.time()
+execution_time = end_time - start_time
+print(f"Pipeline completed successfully in {execution_time:.2f} seconds.")
+
+
+12.
+import numpy as np
+import pandas as pd
+import seaborn as sns
+
+# Set random seed for reproducibility
+np.random.seed(123)
+
+# Generate random dataset
+dataset = np.random.uniform(1, 200, size=(100, 30))
+df = pd.DataFrame(dataset)
+
+# Replace values with NA in the specified range
+df.loc[:, 10:60] = np.nan
+missing_rows_count = df.isnull().any(axis=1).sum()
+
+print("Number of rows with missing values:", missing_rows_count)
+
+# Replace NA values with the average of the column value
+df = df.fillna(df.mean())
+
+# Calculate Pearson correlation among all columns
+corr_matrix = df.corr()
+
+# Plot heat map of Pearson correlation
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
+plt.title('Pearson Correlation Heatmap')
+plt.show()
+
+# Select columns with correlation <= 0.7
+columns_to_keep = corr_matrix.columns[corr_matrix.abs().sum() <= 0.7]
+df_selected = df[columns_to_keep]
+
+# Normalize values between 0 and 10
+normalized_df = (df_selected - df_selected.min()) / (df_selected.max() - df_selected.min()) * 10
+
+# Replace values with 1 if <= 0.5 else with 0
+binary_df = normalized_df.applymap(lambda x: 1 if x <= 0.5 else 0)
+
+print("Modified Dataset:")
+print(binary_df)
+
+
+
+13. 
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans, AgglomerativeClustering
+from sklearn.metrics import pairwise_distances_argmin_min
+
+# Set random seed for reproducibility
+np.random.seed(123)
+
+# Generate random dataset
+dataset = np.zeros((500, 10))
+
+# Columns 1 to 4
+dataset[:, 0:4] = np.random.uniform(-10, 10, size=(500, 4))
+
+# Columns 5 to 8
+dataset[:, 4:8] = np.random.uniform(10, 20, size=(500, 4))
+
+# Columns 9 to 10
+dataset[:, 8:10] = np.random.uniform(-100, 100, size=(500, 2))
+
+# Apply K-Means clustering
+kmeans = KMeans(n_clusters=range(1, 11))
+kmeans.fit(dataset)
+distances = kmeans.inertia_
+
+# Plot K-Means clustering distance metric graph
+plt.plot(range(1, 11), distances, marker='o')
+plt.xlabel('Number of Clusters')
+plt.ylabel('Distance')
+plt.title('K-Means Clustering - Elbow Method')
+plt.show()
+
+# Apply Hierarchical clustering
+hierarchical = AgglomerativeClustering(n_clusters=range(1, 11), linkage='ward')
+hierarchical.fit(dataset)
+distances = []
+
+for n_clusters in range(1, 11):
+    cluster_distances = pairwise_distances_argmin_min(dataset, hierarchical.labels_[:n_clusters])
+    mean_distance = np.mean(cluster_distances[1])
+    distances.append(mean_distance)
+
+# Plot Hierarchical clustering distance metric graph
+plt.plot(range(1, 11), distances, marker='o')
+plt.xlabel('Number of Clusters')
+plt.ylabel('Distance')
+plt.title('Hierarchical Clustering - Elbow Method')
+plt.show()
+
+
+14.
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Set random seed for reproducibility
+np.random.seed(123)
+
+# Generate random dataset
+dataset = np.random.uniform(-100, 100, size=(600, 15))
+
+# Plot scatter graph between Column 5 and Column 6
+plt.scatter(dataset[:, 4], dataset[:, 5])
+plt.xlabel('Column 5')
+plt.ylabel('Column 6')
+plt.title('Scatter Plot of Column 5 and Column 6')
+plt.show()
+
+# Plot histogram of each column in a single graph
+plt.figure(figsize=(10, 6))
+for column in range(15):
+    plt.hist(dataset[:, column], bins=20, alpha=0.5, label=f'Column {column+1}')
+
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.title('Histogram of Each Column')
+plt.legend()
+plt.show()
+
+# Plot box plot of each column in a single graph
+plt.figure(figsize=(10, 6))
+plt.boxplot(dataset, labels=[str(i+1) for i in range(15)])
+plt.xlabel('Column')
+plt.ylabel('Value')
+plt.title('Box Plot of Each Column')
+plt.show()
+
+
+
+15.
+import numpy as np
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(123)
+
+# Generate random dataset
+dataset = np.random.uniform(5, 10, size=(500, 5))
+
+# Perform t-Test on each column
+ttest_results = []
+for column in range(5):
+    tstat, pvalue = stats.ttest_1samp(dataset[:, column], 7.5)  # Assuming population mean of 7.5
+    ttest_results.append((tstat, pvalue))
+
+# Perform Wilcoxon Signed Rank Test on each column
+wilcoxon_results = []
+for column in range(5):
+    statistic, pvalue = stats.wilcoxon(dataset[:, column] - 7.5)  # Assuming population median of 7.5
+    wilcoxon_results.append((statistic, pvalue))
+
+# Perform Two Sample t-Test and Wilcoxon Rank Sum Test on Column 3 and Column 4
+column3 = dataset[:, 2]
+column4 = dataset[:, 3]
+
+ttest_2samp_result = stats.ttest_ind(column3, column4)
+wilcoxon_2samp_result = stats.ranksums(column3, column4)
+
+# Print the results
+print("T-Test Results:")
+for i, result in enumerate(ttest_results):
+    print(f"Column {i+1}: T-statistic={result[0]:.4f}, p-value={result[1]:.4f}")
+
+print("\nWilcoxon Signed Rank Test Results:")
+for i, result in enumerate(wilcoxon_results):
+    print(f"Column {i+1}: Statistic={result[0]:.4f}, p-value={result[1]:.4f}")
+
+print("\nTwo Sample T-Test Results:")
+print(f"T-statistic={ttest_2samp_result.statistic:.4f}, p-value={ttest_2samp_result.pvalue:.4f}")
+
+print("\nWilcoxon Rank Sum Test Results:")
+print(f"Statistic={wilcoxon_2samp_result.statistic:.4f}, p-value={wilcoxon_2samp_result.pvalue:.4f}")
+
+
